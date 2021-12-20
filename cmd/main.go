@@ -26,7 +26,7 @@ func main() {
 		Args.HeaderFlag = "JRMI\x00"
 	default:
 	}
-	log.LogInfo("header flag: 0x" + hex.EncodeToString([]byte(Args.HeaderFlag)))
+	log.LogDebug("header flag: 0x" + hex.EncodeToString([]byte(Args.HeaderFlag)))
 
 	var wg sync.WaitGroup
 	for _, port := range portSlice {

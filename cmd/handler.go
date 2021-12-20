@@ -30,7 +30,7 @@ func listen(port string, wg *sync.WaitGroup) {
 		log.LogError(err.Error())
 		return
 	}
-	log.LogInfo("start listen: " + port)
+	log.LogDebug("start listen: " + port)
 	var conn net.Conn
 	for {
 		conn, err = listener.Accept()
@@ -38,7 +38,7 @@ func listen(port string, wg *sync.WaitGroup) {
 			log.LogError(err.Error())
 			continue
 		}
-		log.LogInfo("new Connection from: " + conn.RemoteAddr().String())
+		log.LogDebug("new Connection from: " + conn.RemoteAddr().String())
 		go handler(conn)
 	}
 
