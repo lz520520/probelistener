@@ -31,7 +31,13 @@ func main() {
 	var wg sync.WaitGroup
 	for _, port := range portSlice {
 		wg.Add(1)
-		go listen(port, &wg)
+		switch Args.Mode {
+		case "tcp":
+			go tcpListen(port, &wg)
+		case "udp":
+			go udpListen(port, &wg)
+
+		}
 	}
 	wg.Wait()
 }

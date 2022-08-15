@@ -14,6 +14,8 @@ var Args *Options
 type Options struct {
 	ListenRange string
 	HeaderFlag  string
+	RecvLen     int
+	Mode        string
 }
 
 func SplitPort(ports string) (portSlice []string) {
@@ -49,7 +51,13 @@ func parser() {
 	内置: ldap/rmi
 	自定义: flag或0x414141`)
 
+	flag.StringVar(&Args.Mode, "m", "tcp", `port mode, tcp/udp`)
+	flag.IntVar(&Args.RecvLen, "len", 0, `default headerFlag length`)
+
 	flag.Parse()
+	if Args.RecvLen == 0 {
+		Args.RecvLen = len(Args.HeaderFlag)
+	}
 
 	if strings.HasPrefix(Args.HeaderFlag, "0x") {
 		tmp, err := hex.DecodeString(Args.HeaderFlag[2:])
